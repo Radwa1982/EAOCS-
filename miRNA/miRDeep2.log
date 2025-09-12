@@ -1,0 +1,21 @@
+(mirdeep2_env) [2375894@login1 mirna]$ ls collapsed 
+SRR24348445.fa  SRR24348447.fa  SRR24348449.fa  SRR24348451.fa
+SRR24348446.fa  SRR24348448.fa  SRR24348450.fa  SRR24348452.fa 
+(mirdeep2_env) [2375894@login1 mirna]$ ls mapped
+SRR24348445.arf  SRR24348447.arf  SRR24348449.arf  SRR24348451.arf
+SRR24348446.arf  SRR24348448.arf  SRR24348450.arf  SRR24348452.arf 
+(mirdeep2_env) [2375894@login1 mirna]$ ls ref
+column_genome.fa      hg38_genome_p.3.ebwt             hsa.mature.fa 
+GRCh38.p13.genome.fa   hg38_genome_p.4.ebwt            mapper_logs 
+GRCh38.primary_assembly.genome.fa  hg38_genome_p.rev.1.ebwt         mature.fa
+hairpin.fa                         hg38_genome_p.rev.2.ebwt         one_column_genome_1.fa
+hg38_genome_index.1.ebwt             hg38_ncrna_index.1.ebwt          one_column_genome.fa
+hg38_genome_index.2.ebwt           hg38_ncrna_index.2.ebwt           one_column_hsa.hairpin.clean.fa
+hg38_genome_index.3.ebwt           hg38_ncrna_index.3.ebwt          one_column_hsa.hairpin.fa
+hg38_genome_index.4.ebwt           hg38_ncrna_index.4.ebwt          one_column_hsa.mature.clean.fa
+hg38_genome_index.rev.1.ebwt       hg38_ncrna_index.rev.1.ebwt      one_column_hsa.mature.fa 
+hg38_genome_index.rev.2.ebwt       hg38_ncrna_index.rev.2.ebwt      primary_column_genome.fa   
+hg38_genome_p.1.ebwt               Homo_sapiens.GRCh38.ncrna.fa.gz    hg38_genome_p.2.ebwt              
+hsa.hairpin.fa
+
+(mirdeep2_env) [2375894@login1 mirna]$ miRDeep2.pl collapsed/SRR24348445.fa ref/column_genome.fa mapped/SRR24348445.arf ref/one_column_hsa.mature.clean.fa none ref/one_column_hsa.hairpin.clean.fa -t hsa 
