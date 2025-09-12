@@ -6,8 +6,7 @@ module load
  
  prefetch SRR24348451 #Sample name ( all samples ) 
  fasterq-dump SRR24348450 ( all samples)
-  # Output .fastq.gz , here each two runs were fromthe same sample so merged together and labeled the sample name 
-  cat  SRR24348457.fastq.gz  SRR24348458.fastq.gz > CW44.fastq.gz # These sample metadata were obtained from the study it self / single end reads but two runs 
+  # Output .fastq.gz , 
   # Quality checks of the raw reads 
   mkdir qc_reports
   fastqc -o qc_reports *.fastq.gz -t 16
