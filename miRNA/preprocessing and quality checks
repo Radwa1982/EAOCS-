@@ -1,1 +1,42 @@
+module avail
+module load 
+#sratoolkit
+#fastqc
+#fastp
+ 
+ prefetch SRR24348451 #Sample name ( all samples ) 
+ fasterq-dump SRR24348450 ( all samples)
+  # Output .fastq.gz , here each two runs were fromthe same sample so merged together and labeled the sample name 
+  cat  SRR24348457.fastq.gz  SRR24348458.fastq.gz > CW44.fastq.gz # These sample metadata were obtained from the study it self / single end reads but two runs 
+  # Quality checks of the raw reads 
+  mkdir qc_reports
+  fastqc -o qc_reports *.fastq.gz -t 16
+  #downloading to the computer in windows power shel
+  scp 2375894@login1.ada.brunel.ac.uk: ( pwd to get the file path ) (folder path on the computer - note no " and the \ is changed to this/)
+
+  #### Here the cluster did not have fastp folder so enviromnet within my scratch had to be created 
+  [2375894@login1 raw_data]$ conda create --prefix ~/my_env fastp 
+  conda env list  
+   conda activate  /home/2375894/my_env # the path taken from conda env list)
+   fastp -i SRR24348451.fastq.gz -o SRR24348451_clean.fastq.gz -t 16 -a TGGAATTCTCGGGTGCCAAGG -l 17 -g -p 
+
+## downloded the fastqc files - to recheck quality 
+fastqc -o qc_reports *_clean.fastq.gz -t 16  
+
+## This is to set up the miRDeep2 
+curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+ ./bin/micromamba shell init -s bash -p ~/micromamba 
+ micromamba create -y -n mirdeep2_env -c conda-forge -c bioconda mirdeep2=2.0.1.2 
+ conda config --set channel_priority strict  
+conda config --set solver libmamba 
+ micromamba create -y -n mirdeep2_env -c conda-forge -c bioconda mirdeep2=2.0.1.2 
+ mamba create -n mirdeep2_env python=3.8  
+ micromamba install -c bioconda -c conda-forge viennarna  
+conda activate /home/2375894/.local/share/mamba/envs/mirdeep2_env
+micromamba install -c bioconda mirdeep2
+miRDeep2.pl --help
+
+### download genome 
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/GRCh38.p13.genome.fa.gz  
+bowtie-build GRCh38.p13.genome.fa.gz  hg38_genome_index 
 
