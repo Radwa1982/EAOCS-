@@ -24,6 +24,95 @@ module load
 #then gunzip 
 gunzip *_noadpt.fastq.gz
 
+#create bash script 
+vim map_read.sh
+#!/bin/bash 
+# ==== CONFIGURATION ====   
+FASTQ_DIR="/home/2375894/radwa-scratch/raw_data/mirna/"      
+COLLAPSED_DIR="collapsed"          
+MAPPED_DIR="mapped"  
+GENOME_INDEX="ref/hg38_genome_index"   
+# ========================          
+# Create output directories           
+mkdir -p "$COLLAPSED_DIR" "$MAPPED_DIR" 
+# Loop through all *_clean.fastq files    
+for fq in *_noadpt.fastq; do    
+# Skip if no matching files   
+[ -e "$fq" ] || continue  
+# Extract sample name (remove path and "_clean.fastq")   
+sample=$(basename "$fq" _noadpt.fastq)      
+echo "▶️ Processing $sample"       
+# Run mapper.pl    
+mapper.pl "$fq" \  
+-e -m -n -h -q -k TGGAATTCTCGGGTGCCAAGG  \  
+-s "${COLLAPSED_DIR}/${sample}.fa" \    
+-t "${MAPPED_DIR}/${sample}.arf" \  
+-p "$GENOME_INDEX" 
+echo "✅ Done: $sample"  
+
+
+
+#This was the out put of this step 
+▶️ Processing SRR24348445
+Log file for this run is in mapper_logs and called mapper.log_93937 
+Mapping statistics 
+#desc   total   mapped  unmapped        %mapped %unmapped
+total: 5887322  3965150 1922172 67.351  32.649
+seq: 5887322    3965150 1922172 67.351  32.649
+✅ Done: SRR24348445 
+▶️ Processing SRR24348446 
+Log file for this run is in mapper_logs and called mapper.log_94667 
+Mapping statistics 
+#desc   total   mapped  unmapped        %mapped %unmapped 
+total: 4051248  3170782 880466  78.267  21.733    
+seq: 4051248    3170782 880466  78.267  21.733   
+✅ Done: SRR24348446 
+▶️ Processing SRR24348447 
+Log file for this run is in mapper_logs and called mapper.log_95157
+Mapping statistics  
+#desc   total   mapped  unmapped        %mapped %unmapped  
+total: 4524207  3484278 1039929 77.014  22.986   
+seq: 4524207    3484278 1039929 77.014  22.986   
+✅ Done: SRR24348447   
+▶️ Processing SRR24348448 
+Log file for this run is in mapper_logs and called mapper.log_95729  
+Mapping statistics            
+#desc   total   mapped  unmapped        %mapped %unmapped   
+total: 5293761  4055176 1238585 76.603  23.397      
+seq: 5293761    4055176 1238585 76.603  23.397  
+✅ Done: SRR24348448             
+▶️ Processing SRR24348449   
+Log file for this run is in mapper_logs and called mapper.log_96325  
+Mapping statistics     
+#desc   total   mapped  unmapped        %mapped %unmapped 
+total: 5232118  3223670 2008448 61.613  38.387    
+seq: 5232118    3223670 2008448 61.613  38.387 
+✅ Done: SRR24348449        
+▶️ Processing SRR24348450
+Log file for this run is in mapper_logs and called mapper.log_96970 
+Mapping statistics             
+#desc   total   mapped  unmapped        %mapped %unmapped 
+total: 4973639  2362551 2611088 47.501  52.499   
+seq: 4973639    2362551 2611088 47.501  52.499   
+✅ Done: SRR24348450           
+▶️ Processing SRR24348451  
+Log file for this run is in mapper_logs and called mapper.log_97502 
+Mapping statistics              
+#desc   total   mapped  unmapped        %mapped %unmapped   
+total: 4837533  3434098 1403435 70.989  29.011     
+seq: 4837533    3434098 1403435 70.989  29.011 
+✅ Done: SRR24348451     
+▶️ Processing SRR24348452 
+Log file for this run is in mapper_logs and called mapper.log_98036  
+Mapping statistics                            
+#desc   total   mapped  unmapped        %mapped %unmapped 
+total: 5120299  4228835 891464  82.590  17.410      
+seq: 5120299    4228835 891464  82.590  17.410   
+✅ Done: SRR24348452       
+
+
+
+
 ## downloded the fastqc files - to recheck quality 
 fastqc -o qc_reports *_clean.fastq.gz -t 16  
 
