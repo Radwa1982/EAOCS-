@@ -81,6 +81,8 @@ echo "Pipeline completed successfully!"
 ## Output of this step is aligmnet file SAM and BAM - sequence alignemnt map - convert sam to bam ( non human readable)
 ## Out put was count matrix final _count.txt 
 ## downloaded the file and took it to R 
+# you can use this to retrive the percentage of mapped reads 
+samtoo flagstat (sample name).BAM
 
     
    
