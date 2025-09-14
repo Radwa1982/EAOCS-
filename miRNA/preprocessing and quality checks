@@ -21,6 +21,8 @@ module load
 
 # in the second time we used this 
    fastp -i SRR24348451.fastq.gz -o SRR24348451_noadpt.fastq.gz -t 16 -l 17 -g -p 
+#then gunzip 
+gunzip *_noadpt.fastq.gz
 
 ## downloded the fastqc files - to recheck quality 
 fastqc -o qc_reports *_clean.fastq.gz -t 16  
